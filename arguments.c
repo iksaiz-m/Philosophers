@@ -6,19 +6,19 @@
 /*   By: iksaiz-m <iksaiz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 20:05:39 by iksaiz-m          #+#    #+#             */
-/*   Updated: 2025/01/20 20:09:31 by iksaiz-m         ###   ########.fr       */
+/*   Updated: 2025/05/11 19:22:42 by iksaiz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	error2(void)
+void	error(void)
 {
-	printf("Error, introduce 4 or 5 positive numbers as arguments\n");
+	printf("Error, introduce 4 or 5 separate positive numbers as arguments\n");
 	printf("1: number_of_philosophers, 2: time_to_die, 3: time_to_eat");
 	printf(", 4: time_to_sleep, ");
 	printf("5: (optional) number_of_times_each_philosopher_must_eat\n");
-	return ;
+	printf("The numbers must not be greater than MAX_INT\n");
 }
 
 static int	ft_isdigit(int c)
@@ -41,16 +41,17 @@ static int	check_argument(char *av)
 		if (av[i] == '+')
 		{
 			i++;
-			if (!ft_isdigit(av[i]) || av[i] == '-')
+			if (!ft_isdigit(av[i]))
 				return (0);
 		}
+		if (av[i] == '-')
+			return (0);
 		while (ft_isdigit(av[i]))
 			i++;
-		//if (av[i] != ' ' && av[i] != '	' && av[i] != '\0')
-		if (av[i] != '\0')
+		if (av[i] != ' ' && av[i] != '	' && av[i] != '\0')
 			return (0);
-		// while (av[i] == ' ' || av[i] == '	')
-		// 	i++;
+		while (av[i] == ' ' || av[i] == '	')
+			i++;
 		if (av[i] == '\0')
 			return (1);
 	}
@@ -65,6 +66,9 @@ int	handle_multiple_arguments(int ac, char **av)
 	while (++i < ac)
 	{
 		if (!check_argument(av[i]))
+			return (0);
+		if (ft_long_atoi(av[i]) <= 0 || ft_strlen(av[i]) > 10
+			|| ft_long_atoi(av[i]) > MAX_INT)
 			return (0);
 	}
 	return (1);
