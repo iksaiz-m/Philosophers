@@ -6,7 +6,7 @@
 /*   By: iksaiz-m <iksaiz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 19:32:20 by iksaiz-m          #+#    #+#             */
-/*   Updated: 2025/05/11 19:20:36 by iksaiz-m         ###   ########.fr       */
+/*   Updated: 2025/05/16 20:10:47 by iksaiz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,10 @@ void	write_status(t_philo *philo, char *str)
 	if (philo->full)
 		return ;
 	pthread_mutex_lock(&philo->dinner->write_mutex);
-	printf("%ld %i %s\n", timepass, philo->id, str);
+	pthread_mutex_lock(&philo->dinner->lock);
+	if (philo->dinner->ending_flag == 0)
+		printf("%ld %i %s\n", timepass, philo->id, str);
+	pthread_mutex_unlock(&philo->dinner->lock);
 	pthread_mutex_unlock(&philo->dinner->write_mutex);
 	return ;
 }

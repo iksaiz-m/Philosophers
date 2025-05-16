@@ -6,7 +6,7 @@
 /*   By: iksaiz-m <iksaiz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 16:50:17 by iksaiz-m          #+#    #+#             */
-/*   Updated: 2025/05/11 19:18:32 by iksaiz-m         ###   ########.fr       */
+/*   Updated: 2025/05/16 20:11:44 by iksaiz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static bool	check_dead_philo(t_table *chef, int i)
 	{
 		if (death_philo(&chef->philos[i]))
 		{
-			write_status(&chef->philos[i], "died");
+			write_status(&chef->philos[i], "\033[31mdied\033[0m");
 			pthread_mutex_lock(&chef->lock);
 			chef->ending_flag = true;
 			pthread_mutex_unlock(&chef->lock);
