@@ -6,7 +6,7 @@
 /*   By: iksaiz-m <iksaiz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 19:07:20 by iksaiz-m          #+#    #+#             */
-/*   Updated: 2025/05/11 19:26:52 by iksaiz-m         ###   ########.fr       */
+/*   Updated: 2025/05/16 20:00:41 by iksaiz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,11 +90,6 @@ int	main(int ac, char **av)
 	if (ac < 5 || ac > 6 || !handle_multiple_arguments(ac, av))
 	{
 		error();
-		return (1);
-	}
-	if (ft_long_atoi(av[1]) > 300)
-	{
-		printf("Error, too many philosophers\n");
 		return (1);
 	}
 	init_data(&dinner, av);
