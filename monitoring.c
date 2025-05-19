@@ -6,7 +6,7 @@
 /*   By: iksaiz-m <iksaiz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 16:50:17 by iksaiz-m          #+#    #+#             */
-/*   Updated: 2025/05/16 20:11:44 by iksaiz-m         ###   ########.fr       */
+/*   Updated: 2025/05/19 19:10:37 by iksaiz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,17 @@
 
 static bool	check_dead_philo(t_table *chef, int i)
 {
+	long	timepass;
+
 	while (i < chef->number_of_philosopher)
 	{
 		if (death_philo(&chef->philos[i]))
 		{
-			write_status(&chef->philos[i], "\033[31mdied\033[0m");
 			pthread_mutex_lock(&chef->lock);
 			chef->ending_flag = true;
+			timepass = get_time() - chef->time_of_start;
+			printf("%ld %i \033[31mdied\033[0m\n", timepass,
+				chef->philos[i].id);
 			pthread_mutex_unlock(&chef->lock);
 			return (chef->ending_flag);
 		}
